@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FlorianTabs</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        li {
+            padding: 2em;
+            display: inline-block
+        }
+
+            li.active {
+                font-weight:bold;
+            }
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        Current Tab: @ViewBag.CurrentTab
+
+        <main role="main" class="pb-3">
+            <div id="Tabs" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    @foreach (var tab in new Dictionary<string, string> {
+            { "ImpairmentCalculation", "Impairment"},
+            { "ImpairmentApproval", "Impairment approval"},
+            { "DisposalResult", "Disposal Result"}
+            })
+                    {
+                        <li class="@(tab.Key == ViewBag.CurrentTab ? "active" : "")"><a aria-controls="@tab.Key" role="tab" asp-page="@tab.Key">@tab.Value</a></li>
+                    }
+                </ul>
+            </div>
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - FlorianTabs - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
